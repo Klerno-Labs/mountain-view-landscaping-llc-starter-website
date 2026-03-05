@@ -1,3 +1,5 @@
+"use client";
+
 import { Metadata } from "next";
 import Container from "@/components/ui/Container";
 import Section from "@/components/ui/Section";
