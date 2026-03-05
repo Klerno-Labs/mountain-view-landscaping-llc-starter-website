@@ -1,10 +1,10 @@
 import { Metadata } from "next";
-import Container from "@/components/ui/Container";
-import Section from "@/components/ui/Section";
+import { Container } from "@/components/ui/Container";
+import { Section } from "@/components/ui/Section";
 import Image from "next/image";
 import { images } from "@/config/images";
 import { DollarSign, Clock } from "lucide-react";
-import CTA from "@/components/sections/CTA";
+import { CTA } from "@/components/sections/CTA";
 
 export const metadata: Metadata = {
   title: "Services",

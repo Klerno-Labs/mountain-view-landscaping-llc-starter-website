@@ -1,11 +1,11 @@
 import { Metadata } from "next";
-import Hero from "@/components/sections/Hero";
-import Features from "@/components/sections/Features";
-import Process from "@/components/sections/Process";
-import PortfolioTeaser from "@/components/sections/PortfolioTeaser";
-import Testimonials from "@/components/sections/Testimonials";
-import LeadForm from "@/components/forms/LeadForm";
-import CTA from "@/components/sections/CTA";
+import { Hero } from "@/components/sections/Hero";
+import { Features } from "@/components/sections/Features";
+import { Process } from "@/components/sections/Process";
+import { PortfolioTeaser } from "@/components/sections/PortfolioTeaser";
+import { Testimonials } from "@/components/sections/Testimonials";
+import { LeadForm } from "@/components/forms/LeadForm";
+import { CTA } from "@/components/sections/CTA";
 
 export const metadata: Metadata = {
   title: "Home",

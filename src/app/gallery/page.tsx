@@ -3,11 +3,11 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
-import Section from "@/components/ui/Section";
+import { Section } from "@/components/ui/Section";
 import { images } from "@/config/images";
 import { X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import BeforeAfter from "@/components/ui/BeforeAfter";
+import { BeforeAfter } from "@/components/ui/BeforeAfter";
 import { Metadata } from "next";
 
 // Static export metadata workaround for client component pages would usually happen in parent,

@@ -1,7 +1,7 @@
 import { Metadata } from "next";
-import Container from "@/components/ui/Container";
-import Section from "@/components/ui/Section";
-import ContactForm from "@/components/forms/ContactForm";
+import { Container } from "@/components/ui/Container";
+import { Section } from "@/components/ui/Section";
+import { ContactForm } from "@/components/forms/ContactForm";
 import { MapPin, Mail, Phone, Clock } from "lucide-react";
 import { siteConfig } from "@/config/site";
 

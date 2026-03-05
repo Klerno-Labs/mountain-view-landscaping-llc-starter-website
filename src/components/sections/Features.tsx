@@ -1,5 +1,5 @@
 import { Leaf, Shovel, Sprout } from "lucide-react";
-import Container from "@/components/ui/Container";
+import { Container } from "@/components/ui/Container";
 
 const features = [
   {

@@ -9,11 +9,6 @@ import { Award, Users, Leaf } from "lucide-react";
 import CTA from "@/components/sections/CTA";
 import { motion } from "framer-motion";
 
-export const metadata: Metadata = {
-  title: "About Us",
-  description: "Learn about Mountain View Landscaping. Family-owned since 2015, serving Austin with pride and passion.",
-};
-
 const stats = [
   { number: "500+", label: "Yards Transformed" },
   { number: "8", label: "Years Experience" },
