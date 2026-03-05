@@ -1,21 +1,35 @@
-import * as React from "react";
 import { cn } from "@/lib/utils";
+import { HTMLAttributes } from "react";
 
-interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
+  size?: "sm" | "md" | "lg" | "xl";
+}
 
-const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
-  ({ className, children, ...props }, ref) => {
-    return (
-      <div
-        ref={ref}
-        className={cn("max-w-7xl mx-auto px-4 sm:px-6 lg:px-8", className)}
-        {...props}
-      >
-        {children}
-      </div>
-    );
-  }
-);
-Container.displayName = "Container";
+const Container = ({
+  children,
+  className,
+  size = "xl",
+  ...props
+}: ContainerProps) => {
+  const sizes = {
+    sm: "max-w-3xl",
+    md: "max-w-5xl",
+    lg: "max-w-7xl",
+    xl: "max-w-[1280px]",
+  };
 
-export { Container };
+  return (
+    <div
+      className={cn(
+        "mx-auto px-4 sm:px-6 lg:px-8",
+        sizes[size],
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+};
+
+export default Container;

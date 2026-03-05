@@ -22,41 +22,34 @@ const config: Config = {
           foreground: "#143628",
         },
         highlight: {
-          DEFAULT: "#D98324", // Terracotta/Clay
+          DEFAULT: "#D98324", // Terracotta
           foreground: "#FFFFFF",
         },
-        background: {
-          DEFAULT: "#F9F7F2", // Bone/Warm White
-          surface: "#FFFFFF", // Pure White
-        },
-        text: {
-          main: "#1F2937", // Charcoal
-          muted: "#6B7280", // Cool Gray
-        },
+        bone: "#F9F7F2", // Warm White Background
+        charcoal: "#1F2937",
+        muted: "#6B7280",
       },
       fontFamily: {
-        heading: ["var(--font-heading)", "sans-serif"],
-        body: ["var(--font-body)", "sans-serif"],
-        accent: ["var(--font-accent)", "serif"],
-      },
-      borderRadius: {
-        sm: "4px",
-        md: "8px",
-        lg: "16px",
-      },
-      boxShadow: {
-        card: "0 4px 6px -1px rgba(20, 54, 40, 0.1), 0 2px 4px -1px rgba(20, 54, 40, 0.06)",
-        hover: "0 10px 15px -3px rgba(20, 54, 40, 0.15), 0 4px 6px -2px rgba(20, 54, 40, 0.1)",
-        modal: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
-      },
-      spacing: {
-        "section-gap": "120px",
+        heading: ["var(--font-montserrat)", "sans-serif"],
+        body: ["var(--font-inter)", "sans-serif"],
+        accent: ["var(--font-playfair)", "serif"],
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "gradient-conic":
+          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
   },
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [require("tailwindcss-animate")],
 };
 export default config;

@@ -1,81 +1,91 @@
-"use client";
-
 import { Container } from "@/components/ui/Container";
-import { Section } from "@/components/ui/Section";
-import { motion } from "framer-motion";
-import { MessageCircle, ClipboardCheck, Shovel } from "lucide-react";
+import Image from "next/image";
+import { images } from "@/config/images";
+import { CheckCircle2 } from "lucide-react";
 
 const steps = [
   {
     number: "01",
-    icon: <MessageCircle className="w-8 h-8 text-accent" />,
     title: "Consultation",
-    description: "We meet to discuss your vision, assess your property, and provide a transparent, no-obligation quote tailored to your budget.",
+    description:
+      "We visit your property to understand your vision, assess the space, and discuss budget and timeline. We listen first.",
+    imageKey: "gallery-4",
   },
   {
     number: "02",
-    icon: <ClipboardCheck className="w-8 h-8 text-accent" />,
     title: "Design & Plan",
-    description: "Our experts create a detailed plan. Whether it's a simple maintenance schedule or a complex hardscape blueprint, we finalize details together.",
+    description:
+      "Our designers create a detailed blueprint and 3D renderings so you can visualize the transformation before we break ground.",
+    imageKey: "service-1",
   },
   {
     number: "03",
-    icon: <Shovel className="w-8 h-8 text-accent" />,
-    title: "Execution",
-    description: "Our professional team arrives on time, works efficiently, and cleans up thoroughly. We ensure minimal disruption to your daily life.",
+    title: "Build & Grow",
+    description:
+      "Our expert crew executes the plan with care. From hardscaping to planting, we treat your property as if it were our own.",
+    imageKey: "gallery-1",
   },
 ];
 
 export default function Process() {
   return (
-    <Section bgColor="white">
+    <section className="py-24 bg-white">
       <Container>
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="font-heading font-bold text-3xl md:text-4xl text-primary mb-4">
-            How It Works
+        <div className="text-center max-w-3xl mx-auto mb-20">
+          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4 font-accent">
+            How We Work
           </h2>
-          <p className="text-lg text-text-muted">
-            A simple, stress-free process designed to deliver exceptional results.
+          <p className="text-muted text-lg">
+            A seamless process from concept to completion. We handle the
+            details so you can enjoy the results.
           </p>
         </div>
 
-        <div className="space-y-12 md:space-y-0">
+        <div className="space-y-24">
           {steps.map((step, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.2 }}
-              className={`flex flex-col md:flex-row items-center gap-8 ${
-                index % 2 !== 0 ? "md:flex-row-reverse" : ""
+              className={`flex flex-col lg:flex-row items-center gap-12 ${
+                index % 2 === 1 ? "lg:flex-row-reverse" : ""
               }`}
             >
-              <div className="w-full md:w-1/2">
-                <div className="relative bg-secondary/5 p-10 rounded-2xl">
-                  <span className="font-heading font-bold text-6xl text-secondary/20 absolute top-4 right-6">
-                    {step.number}
-                  </span>
-                  <div className="w-14 h-14 bg-white rounded-full shadow-sm flex items-center justify-center mb-4 relative z-10">
-                    {step.icon}
-                  </div>
-                  <h3 className="font-heading font-bold text-2xl text-primary mb-3">
-                    {step.title}
-                  </h3>
-                  <p className="text-text-muted leading-relaxed">
-                    {step.description}
-                  </p>
+              {/* Image Side */}
+              <div className="w-full lg:w-1/2">
+                <div className="relative aspect-video rounded-2xl overflow-hidden shadow-lg">
+                  <Image
+                    src={images[step.imageKey as keyof typeof images].src}
+                    alt={step.title}
+                    fill
+                    className="object-cover hover:scale-105 transition-transform duration-700"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
                 </div>
               </div>
-              <div className="w-full md:w-1/2 h-64 md:h-80 rounded-2xl overflow-hidden shadow-card relative">
-                <div className="absolute inset-0 bg-primary/10 flex items-center justify-center">
-                   <span className="text-text-muted font-medium">Process Step {index + 1}</span>
+
+              {/* Text Side */}
+              <div className="w-full lg:w-1/2">
+                <div className="text-accent font-bold text-5xl mb-4 font-heading opacity-50">
+                  {step.number}
                 </div>
+                <h3 className="text-2xl font-bold text-primary mb-4">
+                  {step.title}
+                </h3>
+                <p className="text-muted text-lg leading-relaxed mb-6">
+                  {step.description}
+                </p>
+                <ul className="space-y-3">
+                  {["Transparent pricing", "Licensed & Insured", "Weekly updates"].map((item, i) => (
+                    <li key={i} className="flex items-center gap-3 text-primary font-medium">
+                      <CheckCircle2 className="w-5 h-5 text-accent" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </Container>
-    </Section>
+    </section>
   );
 }

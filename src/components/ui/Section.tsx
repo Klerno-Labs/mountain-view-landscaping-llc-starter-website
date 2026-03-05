@@ -1,35 +1,37 @@
-import * as React from "react";
 import { cn } from "@/lib/utils";
+import { HTMLAttributes } from "react";
 
-interface SectionProps extends React.HTMLAttributes<HTMLElement> {
-  id?: string;
+interface SectionProps extends HTMLAttributes<HTMLElement> {
   bgColor?: "white" | "bone" | "forest";
+  id?: string;
 }
 
-const Section = React.forwardRef<HTMLElement, SectionProps>(
-  ({ className, id, bgColor = "white", children, ...props }, ref) => {
-    const bgClasses = {
-      white: "bg-background-surface",
-      bone: "bg-background",
-      forest: "bg-primary text-white",
-    };
+const Section = ({
+  children,
+  className,
+  bgColor = "white",
+  id,
+  ...props
+}: SectionProps) => {
+  const bgStyles = {
+    white: "bg-white",
+    bone: "bg-bone",
+    forest: "bg-primary text-white",
+  };
 
-    return (
-      <section
-        id={id}
-        ref={ref}
-        className={cn(
-          "py-16 md:py-24 lg:py-section-gap",
-          bgClasses[bgColor],
-          className
-        )}
-        {...props}
-      >
-        {children}
-      </section>
-    );
-  }
-);
-Section.displayName = "Section";
+  return (
+    <section
+      id={id}
+      className={cn(
+        "py-16 md:py-24 lg:py-32 transition-colors duration-300",
+        bgStyles[bgColor],
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </section>
+  );
+};
 
-export { Section };
+export default Section;

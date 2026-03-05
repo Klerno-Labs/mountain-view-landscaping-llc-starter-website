@@ -2,31 +2,55 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
-import { Mail, Phone, MapPin, CheckCircle2, Loader2 } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { CheckCircle2, Loader2, AlertCircle } from "lucide-react";
 
 export default function ContactForm() {
   const [step, setStep] = useState(1);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     address: "",
-    service: "Lawn Mowing",
+    service: "",
+    budget: "",
     message: "",
+    _gotcha: "",
   });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const validateStep = () => {
+    const newErrors: Record<string, string> = {};
+
+    if (step === 1) {
+      if (!formData.name) newErrors.name = "Name is required";
+      if (!formData.email) newErrors.email = "Email is required";
+      else if (!/\S+@\S+\.\S+/.test(formData.email))
+        newErrors.email = "Email is invalid";
+      if (!formData.phone) newErrors.phone = "Phone is required";
+    }
+
+    if (step === 2) {
+      if (!formData.service) newErrors.service = "Please select a service";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleNext = () => {
+    if (validateStep()) setStep(step + 1);
+  };
+
+  const handleBack = () => {
+    setStep(step - 1);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (step < 3) {
-      setStep(step + 1);
-      return;
-    }
+    if (!validateStep()) return;
 
     setIsSubmitting(true);
     try {
@@ -35,186 +59,244 @@ export default function ContactForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-      if (res.ok) setIsSuccess(true);
+
+      if (res.ok) {
+        setIsSuccess(true);
+      } else {
+        setErrors({ form: "Something went wrong. Please try again." });
+      }
     } catch (err) {
-      console.error(err);
+      setErrors({ form: "Network error. Please try again." });
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const goBack = () => setStep(step - 1);
-
   if (isSuccess) {
     return (
-      <div className="bg-white p-10 rounded-2xl shadow-card text-center max-w-lg mx-auto">
-        <CheckCircle2 className="w-16 h-16 text-green-500 mx-auto mb-6" />
-        <h3 className="font-heading font-bold text-2xl text-primary mb-2">Message Sent!</h3>
-        <p className="text-text-muted mb-6">
-          Thank you for contacting Mountain View Landscaping. We will review your request and get back to you within 24 hours.
+      <div className="py-12 text-center">
+        <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 text-green-600">
+          <CheckCircle2 className="w-10 h-10" />
+        </div>
+        <h3 className="text-2xl font-bold text-primary mb-2">
+          Thank you for contacting us!
+        </h3>
+        <p className="text-muted">
+          We have received your inquiry and will be in touch within 24 hours.
         </p>
-        <Button variant="outline" onClick={() => window.location.reload()}>
-          Send Another
-        </Button>
       </div>
     );
   }
 
   return (
-    <div className="bg-white p-8 rounded-2xl shadow-card max-w-2xl mx-auto">
+    <form onSubmit={handleSubmit}>
       {/* Progress Bar */}
-      <div className="w-full h-1 bg-gray-100 mb-8 rounded-full overflow-hidden">
-        <div 
-          className="h-full bg-primary transition-all duration-300 ease-out"
+      <div className="w-full h-2 bg-gray-200 rounded-full mb-8">
+        <div
+          className="h-full bg-primary transition-all duration-300 rounded-full"
           style={{ width: `${(step / 3) * 100}%` }}
         />
       </div>
 
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="_gotcha" className="hidden" tabIndex={-1} autoComplete="off" />
+      {errors.form && (
+        <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg flex items-start gap-3">
+          <AlertCircle className="w-5 h-5 mt-0.5 shrink-0" />
+          {errors.form}
+        </div>
+      )}
 
-        {/* Step 1: Contact Info */}
-        {step === 1 && (
-          <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <h3 className="text-xl font-bold text-primary mb-4">Contact Information</h3>
+      {/* Step 1: Contact Info */}
+      {step === 1 && (
+        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label htmlFor="name" className="block text-xs font-bold text-secondary uppercase mb-2">Full Name</label>
-              <input 
-                type="text" 
-                id="name" 
-                name="name"
-                required
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Full Name
+              </label>
+              <input
+                type="text"
+                className={cn(
+                  "w-full p-3 border rounded-lg focus:ring-2 focus:ring-primary outline-none transition-all",
+                  errors.name ? "border-red-500" : "border-gray-300"
+                )}
+                placeholder="John Doe"
                 value={formData.name}
-                onChange={handleChange}
-                className="w-full bg-background border border-gray-300 rounded-md p-3 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
-                placeholder="e.g. Jane Doe"
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
               />
+              {errors.name && (
+                <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+              )}
             </div>
             <div>
-              <label htmlFor="email" className="block text-xs font-bold text-secondary uppercase mb-2">Email Address</label>
-              <input 
-                type="email" 
-                id="email" 
-                name="email"
-                required
-                value={formData.email}
-                onChange={handleChange}
-                className="w-full bg-background border border-gray-300 rounded-md p-3 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
-                placeholder="jane@example.com"
-              />
-            </div>
-            <div>
-              <label htmlFor="phone" className="block text-xs font-bold text-secondary uppercase mb-2">Phone Number</label>
-              <input 
-                type="tel" 
-                id="phone" 
-                name="phone"
-                required
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Phone Number
+              </label>
+              <input
+                type="tel"
+                className={cn(
+                  "w-full p-3 border rounded-lg focus:ring-2 focus:ring-primary outline-none transition-all",
+                  errors.phone ? "border-red-500" : "border-gray-300"
+                )}
+                placeholder="(512) 555-0147"
                 value={formData.phone}
-                onChange={handleChange}
-                className="w-full bg-background border border-gray-300 rounded-md p-3 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
-                placeholder="(512) 555-0123"
+                onChange={(e) =>
+                  setFormData({ ...formData, phone: e.target.value })
+                }
               />
+              {errors.phone && (
+                <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
+              )}
             </div>
           </div>
-        )}
 
-        {/* Step 2: Service Details */}
-        {step === 2 && (
-          <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <h3 className="text-xl font-bold text-primary mb-4">Service Details</h3>
-            <div>
-              <label htmlFor="service" className="block text-xs font-bold text-secondary uppercase mb-2">Service Type</label>
-              <select 
-                id="service"
-                name="service"
-                value={formData.service}
-                onChange={handleChange}
-                className="w-full bg-background border border-gray-300 rounded-md p-3 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
-              >
-                <option value="Lawn Mowing">Lawn Mowing ($45-85/visit)</option>
-                <option value="Landscape Design">Landscape Design ($500-2000)</option>
-                <option value="Tree Trimming">Tree Trimming ($150-400)</option>
-                <option value="Irrigation Installation">Irrigation Installation ($800-2500)</option>
-                <option value="Seasonal Cleanup">Seasonal Cleanup ($200-500)</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor="address" className="block text-xs font-bold text-secondary uppercase mb-2">Service Address</label>
-              <input 
-                type="text" 
-                id="address" 
-                name="address"
-                value={formData.address}
-                onChange={handleChange}
-                className="w-full bg-background border border-gray-300 rounded-md p-3 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
-                placeholder="123 Main St, Austin, TX"
-              />
-            </div>
-            <div>
-              <label htmlFor="message" className="block text-xs font-bold text-secondary uppercase mb-2">Additional Details</label>
-              <textarea 
-                id="message" 
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                rows={4}
-                className="w-full bg-background border border-gray-300 rounded-md p-3 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
-                placeholder="Tell us about your project..."
-              />
-            </div>
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Email Address
+            </label>
+            <input
+              type="email"
+              className={cn(
+                "w-full p-3 border rounded-lg focus:ring-2 focus:ring-primary outline-none transition-all",
+                errors.email ? "border-red-500" : "border-gray-300"
+              )}
+              placeholder="john@example.com"
+              value={formData.email}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
+            />
+            {errors.email && (
+              <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+            )}
           </div>
-        )}
+          
+          {/* Honeypot */}
+          <input type="text" name="_gotcha" className="hidden" tabIndex={-1} autoComplete="off" value={formData._gotcha} onChange={e => setFormData({...formData, _gotcha: e.target.value})} />
 
-        {/* Step 3: Review */}
-        {step === 3 && (
-          <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <h3 className="text-xl font-bold text-primary mb-4">Review & Submit</h3>
-            <div className="space-y-3 text-sm">
-              <div className="flex justify-between border-b pb-2">
-                <span className="text-text-muted">Name:</span>
-                <span className="font-medium text-primary">{formData.name}</span>
-              </div>
-              <div className="flex justify-between border-b pb-2">
-                <span className="text-text-muted">Email:</span>
-                <span className="font-medium text-primary">{formData.email}</span>
-              </div>
-              <div className="flex justify-between border-b pb-2">
-                <span className="text-text-muted">Phone:</span>
-                <span className="font-medium text-primary">{formData.phone}</span>
-              </div>
-              <div className="flex justify-between border-b pb-2">
-                <span className="text-text-muted">Service:</span>
-                <span className="font-medium text-primary">{formData.service}</span>
-              </div>
-            </div>
-            <p className="text-xs text-text-muted bg-gray-50 p-3 rounded-md">
-              By clicking Submit, you agree to be contacted by Mountain View Landscaping regarding your quote request.
-            </p>
+          <div className="flex justify-end">
+            <Button type="button" variant="primary" onClick={handleNext}>
+              Next Step
+            </Button>
           </div>
-        )}
+        </div>
+      )}
 
-        {/* Navigation */}
-        <div className="flex gap-4 mt-8 pt-6 border-t border-gray-100">
-          {step > 1 && (
-            <Button type="button" variant="ghost" onClick={goBack} className="flex-1">
+      {/* Step 2: Project Details */}
+      {step === 2 && (
+        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Service Type
+            </label>
+            <select
+              className={cn(
+                "w-full p-3 border rounded-lg focus:ring-2 focus:ring-primary outline-none bg-white transition-all",
+                errors.service ? "border-red-500" : "border-gray-300"
+              )}
+              value={formData.service}
+              onChange={(e) =>
+                setFormData({ ...formData, service: e.target.value })
+              }
+            >
+              <option value="">Select a service...</option>
+              <option value="Lawn Mowing">Lawn Mowing</option>
+              <option value="Landscape Design">Landscape Design</option>
+              <option value="Tree Trimming">Tree Trimming</option>
+              <option value="Irrigation">Irrigation Installation</option>
+              <option value="Seasonal Cleanup">Seasonal Cleanup</option>
+            </select>
+            {errors.service && (
+              <p className="text-red-500 text-sm mt-1">{errors.service}</p>
+            )}
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Project Address
+            </label>
+            <input
+              type="text"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary outline-none transition-all"
+              placeholder="123 Main St, Austin, TX"
+              value={formData.address}
+              onChange={(e) =>
+                setFormData({ ...formData, address: e.target.value })
+              }
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Estimated Budget
+            </label>
+            <select
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary outline-none bg-white transition-all"
+              value={formData.budget}
+              onChange={(e) =>
+                setFormData({ ...formData, budget: e.target.value })
+              }
+            >
+              <option value="">Select budget range...</option>
+              <option value="Under $1,000">Under $1,000</option>
+              <option value="$1,000 - $5,000">$1,000 - $5,000</option>
+              <option value="$5,000 - $10,000">$5,000 - $10,000</option>
+              <option value="$10,000+">$10,000+</option>
+            </select>
+          </div>
+
+          <div className="flex justify-between">
+            <Button type="button" variant="ghost" onClick={handleBack}>
               Back
             </Button>
-          )}
-          <Button type="submit" className="flex-1" disabled={isSubmitting}>
-            {isSubmitting ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Sending...
-              </>
-            ) : step === 3 ? (
-              "Submit Request"
-            ) : (
-              "Continue"
-            )}
-          </Button>
+            <Button type="button" variant="primary" onClick={handleNext}>
+              Next Step
+            </Button>
+          </div>
         </div>
-      </form>
-    </div>
+      )}
+
+      {/* Step 3: Message */}
+      {step === 3 && (
+        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Additional Details
+            </label>
+            <textarea
+              rows={5}
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary outline-none transition-all resize-none"
+              placeholder="Tell us more about your project goals..."
+              value={formData.message}
+              onChange={(e) =>
+                setFormData({ ...formData, message: e.target.value })
+              }
+            />
+          </div>
+
+          <div className="flex justify-between">
+            <Button type="button" variant="ghost" onClick={handleBack}>
+              Back
+            </Button>
+            <Button
+              type="submit"
+              variant="accent"
+              disabled={isSubmitting}
+              className="min-w-[140px]"
+            >
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Sending...
+                </>
+              ) : (
+                "Send Message"
+              )}
+            </Button>
+          </div>
+        </div>
+      )}
+    </form>
   );
 }

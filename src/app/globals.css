@@ -4,22 +4,55 @@
 
 @layer base {
   :root {
-    --font-heading: "Montserrat", sans-serif;
-    --font-body: "Inter", sans-serif;
-    --font-accent: "Playfair Display", serif;
-  }
-
-  body {
-    @apply bg-background text-text-main font-body antialiased;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-heading;
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 153 45% 14%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 167 13% 32%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 38 75% 60%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 153 45% 14%;
+    --radius: 0.5rem;
   }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+@layer base {
+  * {
+    @apply border-border;
   }
+  body {
+    @apply bg-bone text-charcoal font-body antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+  h1, h2 {
+    @apply font-accent;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #4A5D52;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #143628;
 }
