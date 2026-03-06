@@ -1,12 +1,12 @@
 "use client";
 
 import { Metadata } from "next";
-import Container from "@/components/ui/Container";
-import Section from "@/components/ui/Section";
+import { Container } from "@/components/ui/Container";
+import { Section } from "@/components/ui/Section";
 import Image from "next/image";
 import { images } from "@/config/images";
 import { Award, Users, Leaf } from "lucide-react";
-import CTA from "@/components/sections/CTA";
+import { CTA } from "@/components/sections/CTA";
 import { motion } from "framer-motion";
 
 const stats = [

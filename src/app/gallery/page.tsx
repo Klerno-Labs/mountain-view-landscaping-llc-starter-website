@@ -11,7 +11,7 @@ import { BeforeAfter } from "@/components/ui/BeforeAfter";
 import { Metadata } from "next";
 
 // Static export metadata workaround for client component pages would usually happen in parent,
-// but for this single file output we'll treat this as a regular page but with "use client" for interactivity.
+// but for this single file output we'll treat this as a regular page but with for interactivity.
 // In a real Next.js app, this might be split or metadata handled differently, but we follow instructions.
 
 const galleryItems = [
