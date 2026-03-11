@@ -60,7 +60,7 @@ export default function AboutPage() {
               <p className="text-lg text-muted mb-6">
                 Mountain View Landscaping started with a simple idea: that every
                 home deserves a beautiful, functional outdoor space. What began
-                as a one-man operation has grown into Austin's most trusted
+                as a one-man operation has grown into Austin&apos;s most trusted
                 landscaping team.
               </p>
               <p className="text-lg text-muted mb-8">

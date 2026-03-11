@@ -23,7 +23,7 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-10 text-center max-w-4xl px-4 sm:px-6 lg:px-8">
         <span className="inline-block py-1 px-3 rounded-full bg-accent/20 border border-accent text-accent font-bold text-xs tracking-wider mb-6 uppercase">
-          Austin's Premier Landscaping
+          Austin&apos;s Premier Landscaping
         </span>
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight font-accent">
           Your Yard, <br /> Our Passion.

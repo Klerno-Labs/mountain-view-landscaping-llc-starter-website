@@ -32,7 +32,7 @@ export default function LeadForm() {
           </svg>
         </div>
         <h3 className="text-2xl font-bold mb-2">Request Received!</h3>
-        <p>We'll call you shortly to discuss your project.</p>
+        <p>We&apos;ll call you shortly to discuss your project.</p>
       </div>
     );
   }
@@ -43,7 +43,7 @@ export default function LeadForm() {
         Get a Quick Quote
       </h3>
       <p className="text-muted mb-6">
-        Fill out the form below and we'll get back to you within 24 hours.
+        Fill out the form below and we&apos;ll get back to you within 24 hours.
       </p>
       
       <form onSubmit={handleSubmit} className="space-y-4">
