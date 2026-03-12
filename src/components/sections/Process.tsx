@@ -1,4 +1,4 @@
-import { Container } from "@/components/ui/Container";
+import Container from "@/components/ui/Container";
 import Image from "next/image";
 import { images } from "@/config/images";
 import { CheckCircle2 } from "lucide-react";

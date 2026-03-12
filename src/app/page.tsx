@@ -48,7 +48,7 @@ export default function Home() {
             </p>
             <ul className="space-y-4 mb-8">
               {[
-                "Free on-site consultations",
+                &quot;Free on-site consultations",
                 "Transparent pricing, no hidden fees",
                 "Flexible scheduling for your convenience",
               ].map((item, index) => (

@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import { HTMLAttributes } from "react";
 
 interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
-  size?: "sm" | "md" | "lg" | "xl";
+  size?: &quot;sm" | "md" | "lg" | "xl";
 }
 
 const Container = ({

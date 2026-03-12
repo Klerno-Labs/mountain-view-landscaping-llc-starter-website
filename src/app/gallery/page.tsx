@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Container } from "@/components/ui/Container";
+import Container from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { images } from "@/config/images";
 import { X } from "lucide-react";

@@ -103,7 +103,7 @@ export default function LeadForm() {
         </div>
 
         <Button variant="primary" size="lg" className="w-full" disabled={isSubmitting}>
-          {isSubmitting ? "Sending..." : "Get My Free Quote"}
+          {isSubmitting ? &quot;Sending..." : "Get My Free Quote"}
         </Button>
       </form>
       

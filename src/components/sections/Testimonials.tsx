@@ -1,7 +1,7 @@
 "use client";
 
 import { Star } from "lucide-react";
-import { Container } from "@/components/ui/Container";
+import Container from "@/components/ui/Container";
 import { motion } from "framer-motion";
 
 const testimonials = [

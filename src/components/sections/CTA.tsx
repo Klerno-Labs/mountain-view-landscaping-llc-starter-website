@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Container } from "@/components/ui/Container";
+import Container from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { images } from "@/config/images";
 

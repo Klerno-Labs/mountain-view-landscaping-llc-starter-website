@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { Container } from "@/components/ui/Container";
+import Container from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import Image from "next/image";
 import { images } from "@/config/images";
