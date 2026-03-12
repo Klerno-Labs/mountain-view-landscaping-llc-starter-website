@@ -26,7 +26,7 @@ const projects = [
   },
 ];
 
-export default function PortfolioTeaser() {
+export function PortfolioTeaser() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
@@ -91,3 +91,4 @@ export default function PortfolioTeaser() {
     </section>
   );
 }
+export default PortfolioTeaser;

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { CheckCircle2, Loader2, AlertCircle } from "lucide-react";
 
-export default function ContactForm() {
+export function ContactForm() {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     name: "",
@@ -300,3 +300,4 @@ export default function ContactForm() {
     </form>
   );
 }
+export default ContactForm;

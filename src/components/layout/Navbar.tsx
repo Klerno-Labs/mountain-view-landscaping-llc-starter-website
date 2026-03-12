@@ -8,7 +8,7 @@ import { siteConfig } from "@/config/site";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
-export default function Navbar() {
+export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -121,3 +121,4 @@ export default function Navbar() {
     </header>
   );
 }
+export default Navbar;

@@ -22,7 +22,7 @@ const features = [
   },
 ];
 
-export default function Features() {
+export function Features() {
   return (
     <section className="py-16 md:py-24 bg-bone">
       <Container>
@@ -58,3 +58,4 @@ export default function Features() {
     </section>
   );
 }
+export default Features;

@@ -3,7 +3,7 @@ import Container from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { images } from "@/config/images";
 
-export default function CTA() {
+export function CTA() {
   return (
     <section className="relative py-24 bg-bone">
       <Container>
@@ -42,3 +42,4 @@ export default function CTA() {
     </section>
   );
 }
+export default CTA;

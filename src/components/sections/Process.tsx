@@ -27,7 +27,7 @@ const steps = [
   },
 ];
 
-export default function Process() {
+export function Process() {
   return (
     <section className="py-24 bg-white">
       <Container>
@@ -89,3 +89,4 @@ export default function Process() {
     </section>
   );
 }
+export default Process;

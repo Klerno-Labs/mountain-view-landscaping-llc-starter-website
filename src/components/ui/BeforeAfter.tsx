@@ -11,7 +11,7 @@ interface BeforeAfterProps {
   className?: string;
 }
 
-export default function BeforeAfter({
+export function BeforeAfter({
   beforeKey,
   afterKey,
   className,
@@ -109,3 +109,4 @@ export default function BeforeAfter({
     </div>
   );
 }
+export default BeforeAfter;

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 
-export default function LeadForm() {
+export function LeadForm() {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -113,3 +113,4 @@ export default function LeadForm() {
     </div>
   );
 }
+export default LeadForm;

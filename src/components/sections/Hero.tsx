@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/Button";
 import { images } from "@/config/images";
 import { ChevronDown } from "lucide-react";
 
-export default function Hero() {
+export function Hero() {
   return (
     <section className="relative h-[90vh] min-h-[600px] flex items-center justify-center overflow-hidden">
       {/* Background Image */}
@@ -49,3 +49,4 @@ export default function Hero() {
     </section>
   );
 }
+export default Hero;

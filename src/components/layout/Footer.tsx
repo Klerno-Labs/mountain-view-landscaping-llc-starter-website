@@ -3,7 +3,7 @@ import { Facebook, Instagram, Twitter, MapPin, Mail, Phone } from "lucide-react"
 import { siteConfig } from "@/config/site";
 import Container from "@/components/ui/Container";
 
-export default function Footer() {
+export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -136,3 +136,4 @@ export default function Footer() {
     </footer>
   );
 }
+export default Footer;

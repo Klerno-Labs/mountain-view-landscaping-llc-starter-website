@@ -28,7 +28,7 @@ const testimonials = [
   },
 ];
 
-export default function Testimonials() {
+export function Testimonials() {
   return (
     <section className="py-24 bg-primary relative overflow-hidden">
       {/* Decorative Background Elements */}
@@ -85,3 +85,4 @@ export default function Testimonials() {
     </section>
   );
 }
+export default Testimonials;
