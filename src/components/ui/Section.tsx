@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import { HTMLAttributes } from "react";
 
 interface SectionProps extends HTMLAttributes<HTMLElement> {
-  bgColor?: &quot;white" | "bone" | "forest";
+  bgColor?: "white" | "bone" | "forest";
   id?: string;
 }
 

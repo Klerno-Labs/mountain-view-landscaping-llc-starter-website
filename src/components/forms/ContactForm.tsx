@@ -291,7 +291,7 @@ export default function ContactForm() {
                   Sending...
                 </>
               ) : (
-                &quot;Send Message"
+                "Send Message"
               )}
             </Button>
           </div>
